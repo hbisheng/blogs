@@ -1,0 +1,29 @@
+baseURL = "https://hbisheng.github.io/blogs/"
+languageCode = "en-us"
+title = "Blogs"
+copyright = "Bisheng Huang"
+enableRobotsTXT = true
+summaryLength = 32
+
+[params]
+  author = "Bisheng Huang"
+  description = "Mental models of computer systems, organized by subject."
+  github = "https://github.com/hbisheng/blogs"
+  tikvExplained = "https://hbisheng.github.io/tikv-explained/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+  [markup.highlight]
+    lineNos = false
+    noClasses = true
+    style = "github-dark"
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]

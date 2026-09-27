@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{ .Site.Language.LanguageCode | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    {{- $description := .Site.Params.description -}}
+    {{- with .Description -}}
+      {{- $description = . -}}
+    {{- else -}}
+      {{- if and .IsPage .Summary -}}
+        {{- $description = .Summary | plainify | htmlUnescape -}}
+      {{- end -}}
+    {{- end }}
+    <meta name="description" content="{{ $description }}">
+    <meta name="author" content="{{ .Site.Params.author }}">
+    <title>{{ if .IsHome }}{{ .Site.Title }} · {{ .Site.Params.author }}{{ else }}{{ .Title }} · {{ .Site.Params.author }}{{ end }}</title>
+    {{ with .OutputFormats.Get "RSS" -}}
+      <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}">
+    {{- end }}
+    {{ $style := resources.Get "css/main.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {{ partial "header.html" . }}
+    <main id="main-content">
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ partial "footer.html" . }}
+  </body>
+</html>

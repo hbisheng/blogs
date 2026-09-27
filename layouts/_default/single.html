@@ -1,0 +1,40 @@
+{{ define "main" }}
+  <article class="shell article-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ .Site.Home.RelPermalink }}">Topics</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ .CurrentSection.RelPermalink }}">{{ .CurrentSection.Title }}</a>
+    </nav>
+
+    <header class="article-header">
+      <h1>{{ .Title }}</h1>
+      <p class="article-date">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+        <span aria-hidden="true"> · </span>
+        <a href="{{ .CurrentSection.RelPermalink }}">{{ .CurrentSection.Title }}</a>
+      </p>
+    </header>
+
+    {{ if findRE "<li>" .TableOfContents }}
+      <aside class="article-toc" aria-label="Table of contents">
+        <details open>
+          <summary>On this page</summary>
+          {{ .TableOfContents }}
+        </details>
+      </aside>
+    {{ end }}
+
+    <div class="prose article-body">
+      {{ .Content }}
+    </div>
+
+    <nav class="article-nav" aria-label="More in {{ .CurrentSection.Title }}">
+      {{ with .NextInSection }}
+        <a class="article-nav-previous" href="{{ .RelPermalink }}">← {{ .Title }}</a>
+      {{ end }}
+      {{ with .PrevInSection }}
+        <a class="article-nav-next" href="{{ .RelPermalink }}">{{ .Title }} →</a>
+      {{ end }}
+    </nav>
+  </article>
+{{ end }}
